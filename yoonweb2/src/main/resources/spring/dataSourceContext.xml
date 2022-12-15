@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+  xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+       
+       <!-- <mybatis-spring:scan base-package="com.yoon.**" /> -->
+<!--        ? -->
+
+       <mybatis:scan base-package="com.yoon.mapper"  lazy-initialization="true" />
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation"  value="classpath:/sqlmap/config/sql-mapper-config.xml"></property>
+        <property name="mapperLocations"  value="classpath:/sqlmap/mapper/*.xml"></property>
+    </bean>
+           
+<!--       <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> -->
+<!-- 		  <property name="mapperInterface" value="org.mybatis.spring.sample.mapper.UserMapper" /> -->
+<!-- 		  <property name="sqlSessionFactory" ref="sqlSessionFactory" /> -->
+<!-- 	</bean> -->
+       
+<!--        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+<!--         <property name="dataSource" ref="dataSource"></property> -->
+<!--         <property name="configLocation"  value="classpath:/sqlmap/config/sql-mapper-config.xml"></property> -->
+<!--         <property name="mapperLocations"  value="classpath:/sqlmap/mapper/*.xml"></property> -->
+<!--     </bean> -->
+    
+<!--     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache"> -->
+<!--     	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"> -->
+<!--     	</constructor-arg> -->
+<!-- 	</bean> -->
+
+       </beans>
+       

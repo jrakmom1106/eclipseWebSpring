@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security.xsd">
+        
+        <http auto-config="true" use-expressions="true">
+<!--             <intercept-url pattern="/**" access="ROLE_USER" /> -->
+            <intercept-url pattern="/**" access="permitAll"/>
+            
+            
+            <form-login login-page="/login/login.do" username-parameter="username"
+			password-parameter="password" login-processing-url="/loginProcessing"
+
+			authentication-success-handler-ref="loginSuccessHandler"
+			authentication-failure-handler-ref="loginFailureHandler" />
+
+		<access-denied-handler ref="accessDeniedHandler" />
+		<logout logout-url="/logout" logout-success-url="/login/login.do"
+			invalidate-session="true" />
+			
+			<csrf disabled="true"/> 
+            
+           
+        </http>
+        
+        
+        <beans:bean id="accessDeniedHandler" class="com.yoon.loginHelp.security.CustomAccessDeniedHandler">
+        <beans:property name="defaultDeniedUrl"  value="/login/login.do"></beans:property>
+        </beans:bean>
+        
+        <beans:bean id="loginSuccessHandler" class="com.yoon.loginHelp.security.LoginSuccessHandler">
+        </beans:bean>
+        
+        <beans:bean id="loginFailureHandler"
+		class="com.yoon.loginHelp.security.LoginFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/login/error.do" />
+		</beans:bean>
+		
+		<authentication-manager>
+		<authentication-provider ref="customAuthenticationProvider" />  <!--  로그인 관련 로직 구현 -->
+		</authentication-manager>
+		
+		
+		<beans:bean id="customAuthenticationProvider"
+		class="com.yoon.loginHelp.security.CustomAuthenticationProvider" />
+		
+        
+        
+        
+    
+</beans:beans>
